@@ -1,0 +1,143 @@
+#Tema nya adalah "WEEKEND DISCOUNT" yang dimana di restoran tersebut akan mengadakan diskon sebesar 10% pada hari Sabtu
+# dan diskon sebesar 25% pada hari minggu untuk semua menu yang ada di restoran tersebut dan tidak mendapatkan diskon 
+# pada hari biasa, yaitu pada hari senin sampai jum'at.
+
+#Username Admin = Irvan
+#Password Admin = 057
+#Username User = tidak ada ketentuan
+#Password User = 210
+
+#Daftar menu user
+daftar_menu = {"1" : "Nasi goreng python = Rp.20000", "2" : "Mie goreng C++ = Rp.18000", "3" : "Teh flowchart = Rp.6000", "4" : "Susu Vscode = Rp.10000" }
+
+#Daftar menu admin
+daftar_opsi = {"1" : "Menambah Menu ", "2" : "Menghapus Menu", "3" : "Tampilkan Menu", "4" : "Edit Menu"}
+
+def Admin(): #Fungsi buat menampilkan menu admin
+    print("============================")
+    print("Selamat Datang di Menu Admin")
+    print("============================")
+    print("==========Daftar Opsi==========")
+    for key, val in daftar_opsi.items():
+        print(key, val) #Buat menampilkan daftar opsi
+    print() 
+
+    Opsi = input (str("Pilih Opsi [ 1 / 2 / 3 / 4 ] = "))
+    if Opsi == "1": #Buat nambah menu
+        nomor = input(str("Nomor menu baru = ")) #Buat memberi panggilan pada menu baru 
+        menu_baru1 = input(str("Menu baru = ")) #Nama menu baru
+        daftar_menu.update ({ nomor : menu_baru1})
+        print("=======================")
+        print("Menu telah ditambahkan!")
+        print("=======================")
+        ulang_admin()
+
+    elif Opsi == "2": #Buat hapus menu
+        i = input("Menu yang ingin di hapus [ 1 / 2 / 3 / ...] = ")
+        del daftar_menu[i]
+        print("================================")
+        print("Menu yang dipilih telah dihapus!")
+        print("================================")
+        ulang_admin()
+
+    elif Opsi == "3": #Buat tampilkan menu
+        print("==========Daftar Menu==========")
+        for key, val in daftar_menu.items():
+            print(key,val)
+        ulang_admin()
+
+    elif Opsi == "4": #Buat edit menu
+        nomor = input(str("Nomor menu yang mau di edit = "))
+        menu_baru1 = input(str("Nama dan harga menu yang mau diedit = "))
+        daftar_menu.update ({ nomor : menu_baru1})
+        print("=======================")
+        print("Menu telah diedit!")
+        print("=======================")
+        ulang_admin()
+
+    else:
+        print("Opsi anda salah, mohon masukkan opsi dengan benar")
+        Admin()
+
+def ulang_admin(): #Fungsi untuk mengambil keputusan admin
+    Pilihan = str(input("Apakah anda ingin merubah menu lagi ? [iya/tidak]"))
+    if Pilihan == "iya":
+        print()
+        Admin()
+    elif Pilihan == "tidak":
+        login()
+    else :
+        print("Kata yang anda masukkan salah, mohon di isi kembali :)")
+        ulang_admin()
+
+def user(): #Fungsi untuk menampilkan menu user
+    print()
+    print("===========================================")
+    print("Selamat Datang di Restoran \"STRESS POSTEST\"")
+    print("===========================================")
+    print()
+    print("==========Daftar Menu==========")
+    for key, val in daftar_menu.items():
+        print(key, val)
+    Menu()
+
+def Menu(): #Fungsi untuk memesan makanan bagi user
+    nomor = input("Silahkan Pilih Pesanan Anda [1 / 2 / 3 / ...] = ")
+    print(daftar_menu[nomor])
+    ulang_user()
+
+def ulang_user(): #Fungsi untuk menanyakan keputusan user
+    Keputusan = str(input("Apakah anda ingin memesan lagi ? [iya/tidak]"))
+    if Keputusan == "iya":
+        print()
+        Menu()
+    elif Keputusan == "tidak":
+        print()
+        harga()
+    else :
+        print("Kata yang anda masukkan salah, mohon di isi kembali :)")
+        ulang_user()
+
+def harga(): #Fungsi untuk menghitung total harga user
+    x = int(input("Berapa total harga makanan pelanggan ? = "))
+    y = str(input("Hari ini hari apa ? [biasa / sabtu / minggu] = "))
+    if y == "sabtu":
+        print("Total harga =", x - x * 10/100) 
+    elif y == "minggu":
+        print("Total harga =", x - x * 25/100)
+    elif y == "biasa":
+        print("Total harga =", x)
+    else:
+        print("Kata yang anda masukkan salah, mohon di isi kembali :)")
+        harga()
+    print()
+    print("================================================================")
+    print("Terimakasih telah makan disini.", "Semoga nilai Postest mu tinggi:)")
+    print("================================================================\n")
+    akhir()
+def akhir():
+    Keputusan = input("Apakah anda ingin mengakhiri program ini? [iya / tidak]")
+    if Keputusan == "iya":
+        print("==========================================")
+        print("Terima kasih telah menggunakan program ini")
+        print("==========================================")
+    elif Keputusan == "tidak":
+        print()
+        login()
+    else :
+        print("Kata yang anda masukkan salah, mohon di isi kembali :)")
+        akhir()
+
+print()
+def login(): #Fungsi buat login
+    print("===== MENU LOGIN =====")
+    Username = input("Masukkan nama anda = ") #Username admin = Irvan / Username user = tidak ada ketentuan
+    Password = input("Masukkan password anda [Admin = 057 /Pelanggan = 210] = ") #Admin = 057 / Pelanggan = 210
+    if  Username == "Irvan" and Password == "057":
+        Admin()
+    elif Password == "210":
+        user()
+    else :
+        print("Username dan Password anda salah, mohon masukkan yang benar yaa :)")
+        login()
+login()
